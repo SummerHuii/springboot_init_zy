@@ -77,3 +77,9 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1857700903633555458 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户';
 ```
 
+
+
+项目参考鱼皮通用后端模版 ， 感谢鱼皮
+
+[liyupi (程序员鱼皮)](https://github.com/liyupi)
+
