@@ -5,18 +5,48 @@ server:
 spring:
 #  数据源配置
     datasource:
-        url: jdbc:mysql://localhost:3306/qiutuan_all_powerful?useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/qiutuan_all_powerful?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
         username: root
         password: 123456789qt
         driver-class-name: com.mysql.cj.jdbc.Driver
-
+#上传文件大小限制
+    servlet:
+        multipart:
+            max-file-size: 100MB
+            max-request-size: 100MB
 
 
 mybatis-plus:
   configuration:
-    #关闭驼峰命名
+    # 打印sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #关闭驼峰命名   如果开启驼峰命名请注释此配置
     map-underscore-to-camel-case: false
 
+
+  # TODO 腾讯云对象存储配置
+cos:
+  client:
+    accessKey: xxx
+    secretKey: xxx
+    region: xxx
+    bucket: xxx
+
+
+# TODO minio对象存储配置  自行部署minio服务
+minio:
+  endpoint: http://120.79.57.149:9000
+  accessKey: 3LkuT0H3xBZ7Y4tkKrvO
+  secretKey: bog3j4CJGj2fyZkTYij9eL8eLjkhTx7V7OjG06AX
+  bucket: qiutuan-all-powerful
+
+
+# TODO 选择使用的对象存储 默认使用minio
+# MinioManager  minio对象存储 需要自行部署
+# CosManager    腾讯云对象存储
+file:
+  manager: MinioManager
+    # manager: CosManager
 
 
 # 接口文档配置

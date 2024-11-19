@@ -24,8 +24,6 @@ import java.util.List;
 //@Component
 public class SensitiveWordUtil {
 
-
-
     private static JedisPool jedisPool;
     private static final String SENSITIVE_WORDS_KEY = "sensitive_words";
 
