@@ -56,3 +56,24 @@
 ## 总结
 
 本项目基于 Spring Boot 框架，集成了多种技术和工具，实现了用户登录、文件上传、全局异常处理、登录拦截、用户鉴权和全局跨域等核心功能。通过简化新项目的配置和完成通用功能，项目提升了开发效率，确保了代码的可靠性和可维护性。未来，我们将继续优化和完善项目功能，为更多开发者提供高效、可靠的解决方案。
+
+## 数据库
+
+数据库就一个表 ， 所以写这里了
+
+```sql
+CREATE TABLE `user` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `userAccount` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '账号',
+  `userPassword` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密码',
+  `userName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '用户昵称',
+  `userAvatar` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '用户头像',
+  `userProfile` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '用户简介',
+  `userRole` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user' COMMENT '用户角色',
+  `createTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `isDelete` tinyint NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1857700903633555458 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户';
+```
+
