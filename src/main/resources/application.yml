@@ -5,9 +5,9 @@ server:
 spring:
 #  数据源配置
     datasource:
-        url: jdbc:mysql://localhost:3306/qiutuan_all_powerful?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
-        username: root
-        password: 123456789qt
+        url: jdbc:mysql://localhost:3306/xxxxx?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+        username: xxxxx
+        password: xxxxx
         driver-class-name: com.mysql.cj.jdbc.Driver
 #上传文件大小限制
     servlet:
@@ -35,10 +35,10 @@ cos:
 
 # TODO minio对象存储配置  自行部署minio服务
 minio:
-  endpoint: http://120.79.57.149:9000
-  accessKey: 3LkuT0H3xBZ7Y4tkKrvO
-  secretKey: bog3j4CJGj2fyZkTYij9eL8eLjkhTx7V7OjG06AX
-  bucket: qiutuan-all-powerful
+  endpoint: xxxxxx
+  accessKey: xxxxxx
+  secretKey: xxxxxx
+  bucket: xxxxxxx
 
 
 # TODO 选择使用的对象存储 默认使用minio
