@@ -6,6 +6,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ *  Minio 客户端配置
+ *
+ * @author qiutuan
+ * @date 2024/11/19
+ */
 @Configuration
 @ConfigurationProperties(prefix = "minio")
 @Data
