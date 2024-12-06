@@ -1,4 +1,4 @@
-# 全能SpringBoot脚手架
+# SpringBoot脚手架
 
 ## 项目介绍
 
@@ -63,7 +63,7 @@
 
 ### 环境要求
 
-- JDK 1.8+
+- JDK 17+
 - Maven 3.6+
 - Redis
 - MySQL
