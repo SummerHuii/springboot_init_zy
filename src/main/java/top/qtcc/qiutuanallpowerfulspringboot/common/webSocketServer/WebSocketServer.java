@@ -1,15 +1,20 @@
 package top.qtcc.qiutuanallpowerfulspringboot.common.webSocketServer;
 
 import cn.hutool.json.JSONUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -18,6 +23,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author qiutuan
  * @date 2024/11/22
  */
+@Slf4j
 @Component
 @ServerEndpoint("/websocket/{key}")
 public class WebSocketServer {
@@ -42,11 +48,13 @@ public class WebSocketServer {
      */
     private static final ConcurrentHashMap<String, Session> sessionPool = new ConcurrentHashMap<String, Session>();
 
+    private RedisTemplate<String, Object> redisTemplate;
+
     /**
      * 链接成功调用的方法
      *
      * @param session 会话
-     * @param key  连接标识
+     * @param key     连接标识
      */
     @OnOpen
     public void onOpen(Session session, @PathParam("key") String key) {
@@ -116,7 +124,7 @@ public class WebSocketServer {
     /**
      * 此为单点消息
      *
-     * @param key  连接标识
+     * @param key     连接标识
      * @param message 消息
      */
     public void sendOneMessage(String key, String message) {
@@ -134,7 +142,7 @@ public class WebSocketServer {
     /**
      * 此为单点消息
      *
-     * @param key  连接标识
+     * @param key     连接标识
      * @param message 消息
      */
     public void sendOneMessage(String key, Object message) {
@@ -152,7 +160,7 @@ public class WebSocketServer {
     /**
      * 此为单点消息(多人)
      *
-     * @param keys 连接标识
+     * @param keys    连接标识
      * @param message 消息
      */
     public void sendMoreMessage(String[] keys, String message) {
@@ -168,5 +176,42 @@ public class WebSocketServer {
             }
         }
 
+    }
+
+    /**
+     * 心跳检测
+     */
+    @Scheduled(fixedRate = 30000)
+    public void heartbeat() {
+        for (WebSocketServer webSocket : webSockets) {
+            try {
+                if (webSocket.session.isOpen()) {
+                    webSocket.session.getAsyncRemote().sendText("heartbeat");
+                }
+            } catch (Exception e) {
+                log.error("心跳检测异常", e);
+            }
+        }
+    }
+
+    /**
+     * 发送消息确认机制
+     *
+     * @param key
+     * @param message
+     */
+    public void sendOneMessageWithAck(String key, String message) {
+        Session session = sessionPool.get(key);
+        if (session != null && session.isOpen()) {
+            try {
+                String messageId = UUID.randomUUID().toString();
+                MessageWrapper wrapper = new MessageWrapper(messageId, message);
+                session.getAsyncRemote().sendText(JSONUtil.toJsonStr(wrapper));
+                // 存储消息到Redis，等待确认
+                redisTemplate.opsForValue().set("msg:" + messageId, message, 5, TimeUnit.MINUTES);
+            } catch (Exception e) {
+                log.error("发送消息异常", e);
+            }
+        }
     }
 }
