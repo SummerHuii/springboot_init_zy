@@ -9,11 +9,14 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import top.qtcc.qiutuanallpowerfulspringboot.domain.entity.RequestLog;
+import top.qtcc.qiutuanallpowerfulspringboot.domain.entity.User;
 import top.qtcc.qiutuanallpowerfulspringboot.service.RequestLogService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
+
+import static top.qtcc.qiutuanallpowerfulspringboot.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
  * 请求日志切面
@@ -44,6 +47,10 @@ public class RequestLogAspect {
         requestLog.setUrl(request.getRequestURI());
         requestLog.setMethod(request.getMethod());
         requestLog.setIp(request.getRemoteAddr());
+
+        Object attribute = request.getSession().getAttribute(USER_LOGIN_STATE);
+        if (attribute != null)
+            requestLog.setUserId(((User) attribute).getId());
 
         Object result;
         try {
