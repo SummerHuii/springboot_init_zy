@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
- *  请求日志切面
+ * 请求日志切面
  *
  * @author qiutuan
  * @date 2024/12/07
@@ -29,20 +29,22 @@ public class RequestLogAspect {
     @Resource
     private RequestLogService requestLogService;
 
+
+    //TODO 未保存请求参数
     @Around("execution(* top.qtcc.qiutuanallpowerfulspringboot.controller.*.*(..))")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
         RequestLog requestLog = new RequestLog();
         requestLog.setRequestId(UUID.randomUUID().toString());
-        
+
         // 获取请求信息
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        
+
         requestLog.setUrl(request.getRequestURI());
         requestLog.setMethod(request.getMethod());
         requestLog.setIp(request.getRemoteAddr());
-        
+
         Object result;
         try {
             result = joinPoint.proceed();
@@ -55,7 +57,7 @@ public class RequestLogAspect {
             requestLog.setCostTime(System.currentTimeMillis() - startTime);
             requestLogService.save(requestLog);
         }
-        
+
         return result;
     }
 } 

@@ -1,27 +1,34 @@
 package top.qtcc.qiutuanallpowerfulspringboot.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
-import javax.annotation.Resource;
-import java.util.concurrent.Executor;
-
 /**
- * 定时任务配置
+ *  定时任务配置
  *
  * @author qiutuan
- * @date 2024/12/07
+ * @date 2024/12/08
  */
 @Configuration
+@EnableScheduling
 public class ScheduleConfig implements SchedulingConfigurer {
 
-    @Resource(name = "scheduledExecutor")
-    private Executor scheduledExecutor;
+    @Bean(name = "taskScheduler")
+    public ThreadPoolTaskScheduler taskScheduler() {
+        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setPoolSize(10); // 设置线程池大小
+        scheduler.setThreadNamePrefix("scheduled-task-");
+        scheduler.initialize();
+        return scheduler;
+    }
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        // 设置定时任务的线程池
-        taskRegistrar.setScheduler(scheduledExecutor);
+        // 使用自定义的ThreadPoolTaskScheduler作为调度器
+        taskRegistrar.setTaskScheduler(taskScheduler());
     }
-} 
+}

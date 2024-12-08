@@ -20,8 +20,6 @@ public interface RequestLogService extends IService<RequestLog> {
     
     /**
      * 清理过期日志
-     *
-     * @param days 保留天数
      */
-    void cleanExpiredLogs(int days);
+    void cleanExpiredLogs();
 } 

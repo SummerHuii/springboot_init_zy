@@ -16,7 +16,6 @@ import top.qtcc.qiutuanallpowerfulspringboot.exception.BusinessException;
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 /**
  *  接口限流
@@ -66,7 +65,7 @@ public class RateLimitAspect {
                 "   return 0 " +
                 "end";
         
-        return stringRedisTemplate.execute(new DefaultRedisScript<>(script, Boolean.class),
-                Collections.singletonList(key), String.valueOf(time), String.valueOf(count));
+        return Boolean.TRUE.equals(stringRedisTemplate.execute(new DefaultRedisScript<>(script, Boolean.class),
+                Collections.singletonList(key), String.valueOf(time), String.valueOf(count)));
     }
 } 

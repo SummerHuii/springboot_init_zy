@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import top.qtcc.qiutuanallpowerfulspringboot.annotation.AuthCheck;
+import top.qtcc.qiutuanallpowerfulspringboot.annotation.RateLimit;
+import top.qtcc.qiutuanallpowerfulspringboot.annotation.RepeatSubmit;
 import top.qtcc.qiutuanallpowerfulspringboot.common.BaseResponse;
 import top.qtcc.qiutuanallpowerfulspringboot.common.DeleteRequest;
 import top.qtcc.qiutuanallpowerfulspringboot.common.ResultUtils;
@@ -70,6 +72,8 @@ public class UserController {
      * @param request          请求
      * @return 登录用户信息
      */
+    @RateLimit(count = 30)
+    @RepeatSubmit(interval = 3000)
     @PostMapping("/login")
     public BaseResponse<LoginUserVO> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
         if (userLoginRequest == null) {
@@ -90,6 +94,8 @@ public class UserController {
      * @param request
      * @return
      */
+    @RateLimit(count = 10)
+    @RepeatSubmit(interval = 3000)
     @PostMapping("/logout")
     public BaseResponse<Boolean> userLogout(HttpServletRequest request) {
         if (request == null) {
@@ -216,6 +222,8 @@ public class UserController {
      * @param request
      * @return
      */
+    @RateLimit(count = 30)
+    @RepeatSubmit(interval = 3000)
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Page<User>> listUserByPage(@RequestBody UserQueryRequest userQueryRequest,
