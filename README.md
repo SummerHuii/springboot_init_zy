@@ -1,3 +1,5 @@
+![SpringBoot](https://img.shields.io/badge/SpringBoot-框架-orange)![MyBatis-Plus](https://img.shields.io/badge/MyBatis--Plus-ORM框架-orange)![Redis](https://img.shields.io/badge/Redis-缓存-orange)![WebSocket](https://img.shields.io/badge/WebSocket-实时通信-orange)![MinIO](https://img.shields.io/badge/MinIO-对象存储-orange)![腾讯云COS](https://img.shields.io/badge/腾讯云COS-对象存储-orange)![AOP](https://img.shields.io/badge/AOP-面向切面编程-orange)
+
 # SpringBoot脚手架
 
 ## 项目介绍
@@ -103,7 +105,3 @@
 
 本项目提供了一套完整的企业级应用开发框架，开发者可以基于此快速构建自己的应用。项目集成了主流的技术组件，并提供了丰富的功能特性。
 
-## 作者
-
-- 作者：qiutuan
-- 日期：2024年
