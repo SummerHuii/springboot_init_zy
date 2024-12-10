@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.time.Duration;
 
 /**
- *  Redis 配置类
+ * Redis 配置类
  *
  * @author qiutuan
  * @date 2024/12/07
@@ -24,7 +24,12 @@ import java.time.Duration;
 @Configuration
 public class RedisConfig {
 
-    // 配置 RedisTemplate Bean
+    /**
+     * 配置 RedisTemplate Bean
+     *
+     * @param connectionFactory RedisConnectionFactory
+     * @return {@link RedisTemplate }<{@link String }, {@link Object }>
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -42,28 +47,43 @@ public class RedisConfig {
         return template;
     }
 
-    // 配置 CacheManager Bean
+    /**
+     * 配置 CacheManager Bean
+     *
+     * @param factory RedisConnectionFactory
+     * @return {@link CacheManager }
+     */
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofHours(1)) // 缓存过期时间 1 小时
+                // 缓存过期时间 1 小时
+                .entryTtl(Duration.ofHours(1))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-                .disableCachingNullValues(); // 禁用缓存空值
+                // 禁用缓存空值
+                .disableCachingNullValues();
 
         return RedisCacheManager.builder(factory)
                 .cacheDefaults(config)
                 .build();
     }
 
-    // 配置 RedisCacheConfiguration Bean
+
+    /**
+     * 配置 RedisCacheConfiguration Bean
+     *
+     * @return {@link RedisCacheConfiguration }
+     */
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration() {
         return RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofHours(1)) // 缓存过期时间 1 小时
+                // 缓存过期时间 1 小时
+                .entryTtl(Duration.ofHours(1))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-                .disableCachingNullValues() // 禁用缓存空值
-                .prefixCacheNameWith("cache:"); // 缓存名称前缀
+                // 禁用缓存空值
+                .disableCachingNullValues()
+                // 缓存名称前缀
+                .prefixCacheNameWith("cache:");
     }
 }

@@ -1,12 +1,16 @@
 package top.qtcc.qiutuanallpowerfulspringboot.domain.enums;
 
+import lombok.Getter;
+
 /**
  * 自定义错误码
  *
  * @author qiutuan
  * @date 2024/11/02
  */
+@Getter
 public enum ErrorCode {
+    // 通用错误码
 
     SUCCESS(0, "ok"),
     PARAMS_ERROR(40000, "请求参数错误"),
@@ -30,14 +34,6 @@ public enum ErrorCode {
     ErrorCode(int code, String message) {
         this.code = code;
         this.message = message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
 }

@@ -5,6 +5,12 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ *  请求日志
+ *
+ * @author qiutuan
+ * @date 2024/12/10
+ */
 @Data
 @TableName("request_log")
 public class RequestLog {

@@ -32,7 +32,6 @@ public class RequestLogAspect {
     @Resource
     private RequestLogService requestLogService;
 
-
     //TODO 未保存请求参数
     @Around("execution(* top.qtcc.qiutuanallpowerfulspringboot.controller.*.*(..))")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -42,6 +41,7 @@ public class RequestLogAspect {
 
         // 获取请求信息
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        assert requestAttributes != null;
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
 
         requestLog.setUrl(request.getRequestURI());
@@ -49,8 +49,9 @@ public class RequestLogAspect {
         requestLog.setIp(request.getRemoteAddr());
 
         Object attribute = request.getSession().getAttribute(USER_LOGIN_STATE);
-        if (attribute != null)
+        if (attribute != null) {
             requestLog.setUserId(((User) attribute).getId());
+        }
 
         Object result;
         try {

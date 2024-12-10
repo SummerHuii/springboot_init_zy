@@ -14,10 +14,12 @@ import java.util.concurrent.ThreadPoolExecutor;
  *
  * @author qiutuan
  * @date 2024/12/07
+ * EnableAsync // 开启异步支持
+ * EnableScheduling // 开启定时任务支持
  */
 @Configuration
-@EnableAsync // 开启异步支持
-@EnableScheduling // 开启定时任务支持
+@EnableAsync
+@EnableScheduling
 public class ThreadPoolConfig {
 
     /**

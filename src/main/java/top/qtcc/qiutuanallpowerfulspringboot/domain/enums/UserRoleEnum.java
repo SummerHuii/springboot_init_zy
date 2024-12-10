@@ -1,5 +1,6 @@
 package top.qtcc.qiutuanallpowerfulspringboot.domain.enums;
 
+import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.Arrays;
@@ -12,7 +13,9 @@ import java.util.stream.Collectors;
  * @author qiutuan
  * @date 2024/11/02
  */
+@Getter
 public enum UserRoleEnum {
+// 用户角色枚举
 
     USER("用户", "user"),
     ADMIN("管理员", "admin"),
@@ -30,7 +33,7 @@ public enum UserRoleEnum {
     /**
      * 获取值列表
      *
-     * @return
+     * @return 值列表
      */
     public static List<String> getValues() {
         return Arrays.stream(values()).map(item -> item.value).collect(Collectors.toList());
@@ -39,8 +42,8 @@ public enum UserRoleEnum {
     /**
      * 根据 value 获取枚举
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return 枚举
      */
     public static UserRoleEnum getEnumByValue(String value) {
         if (ObjectUtils.isEmpty(value)) {
@@ -54,11 +57,4 @@ public enum UserRoleEnum {
         return null;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public String getText() {
-        return text;
-    }
 }

@@ -1,5 +1,7 @@
 package top.qtcc.qiutuanallpowerfulspringboot.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 
@@ -9,31 +11,32 @@ import java.net.InetAddress;
  * @author qiutuan
  * @date 2024/11/02
  */
+@Slf4j
 public class NetUtils {
 
     /**
      * 获取客户端 IP 地址
      *
-     * @param request
-     * @return
+     * @param request 请求
+     * @return IP 地址
      */
     public static String getIpAddress(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
-            if (ip.equals("127.0.0.1")) {
+            if ("127.0.0.1".equals(ip)) {
                 // 根据网卡取本机配置的 IP
                 InetAddress inet = null;
                 try {
                     inet = InetAddress.getLocalHost();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    log.error("获取本机 IP 地址失败", e);
                 }
                 if (inet != null) {
                     ip = inet.getHostAddress();

@@ -20,7 +20,8 @@ public class ScheduleConfig implements SchedulingConfigurer {
     @Bean(name = "taskScheduler")
     public ThreadPoolTaskScheduler taskScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-        scheduler.setPoolSize(10); // 设置线程池大小
+        // 设置线程池大小
+        scheduler.setPoolSize(10);
         scheduler.setThreadNamePrefix("scheduled-task-");
         scheduler.initialize();
         return scheduler;

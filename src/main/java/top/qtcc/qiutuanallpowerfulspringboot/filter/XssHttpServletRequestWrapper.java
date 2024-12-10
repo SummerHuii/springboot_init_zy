@@ -18,7 +18,12 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         super(request);
     }
 
-    // 重写getParameter方法，对获取的参数值进行HTML转义，防止XSS攻击
+    /**
+     * 重写getParameter方法，对获取的参数值进行HTML转义，防止XSS攻击
+     *
+     * @param name 参数名
+     * @return {@link String }
+     */
     @Override
     public String getParameter(String name) {
         String value = super.getParameter(name);

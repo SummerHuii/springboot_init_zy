@@ -20,8 +20,7 @@ public interface RequestLogMapper extends BaseMapper<RequestLog> {
      * 删除过期日志
      *
      * @param expireTime 过期时间
-     * @return 影响行数
      */
     @Delete("DELETE FROM request_log WHERE create_time < #{expireTime}")
-    int deleteExpiredLogs(LocalDateTime expireTime);
+    void deleteExpiredLogs(LocalDateTime expireTime);
 } 

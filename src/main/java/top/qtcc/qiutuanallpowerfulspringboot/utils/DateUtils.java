@@ -22,30 +22,41 @@ public class DateUtils {
     public static String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(DEFAULT_FORMATTER);
     }
-    
+
     /**
      * String转LocalDateTime
+     *
+     * @param dateStr 日期字符串
+     * @return {@link LocalDateTime }
      */
     public static LocalDateTime parseDateTime(String dateStr) {
         return LocalDateTime.parse(dateStr, DEFAULT_FORMATTER);
     }
-    
+
     /**
      * Date转LocalDateTime
+     *
+     * @param date 日期
+     * @return {@link LocalDateTime }
      */
     public static LocalDateTime dateToLocalDateTime(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
-    
+
     /**
      * LocalDateTime转Date
+     *
+     * @param localDateTime 日期
+     * @return {@link Date }
      */
     public static Date localDateTimeToDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
-    
+
     /**
      * 获取当前时间字符串
+     *
+     * @return {@link String }
      */
     public static String getCurrentDateTimeStr() {
         return formatDateTime(LocalDateTime.now());

@@ -4,6 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import top.qtcc.qiutuanallpowerfulspringboot.config.MinioClientConfig;
 
@@ -16,6 +17,7 @@ import java.io.File;
  * @author qiutuan
  * @date 2024/11/16
  */
+@Slf4j
 @Component("MinioManager")
 public class MinioManager implements FileManager {
 
@@ -32,13 +34,14 @@ public class MinioManager implements FileManager {
      * @param key           唯一键
      * @param localFilePath 本地文件路径
      */
+    @Override
     public void putObject(String key, String localFilePath) {
         try {
             PutObjectArgs objectArgs = PutObjectArgs.builder().bucket(minioClientConfig.getBucket()).object(key)
                     .stream(FileUtil.getInputStream(localFilePath), new File(localFilePath).length(), -1).contentType("application/octet-stream").build();
             minioClient.putObject(objectArgs);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("上传对象失败", e);
         }
     }
 
@@ -48,6 +51,7 @@ public class MinioManager implements FileManager {
      * @param key  唯一键
      * @param file 文件
      */
+    @Override
     public void putObject(String key, File file) {
 
         try {
@@ -55,7 +59,7 @@ public class MinioManager implements FileManager {
                     .stream(FileUtil.getInputStream(file), file.length(), -1).contentType("application/octet-stream").build();
             minioClient.putObject(objectArgs);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("上传对象失败", e);
         }
     }
 

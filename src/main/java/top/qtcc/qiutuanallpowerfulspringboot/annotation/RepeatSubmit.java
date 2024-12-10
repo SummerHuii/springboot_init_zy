@@ -4,6 +4,9 @@ import java.lang.annotation.*;
 
 /**
  * 防重复提交注解
+ *
+ * @author qiutuan
+ * @date 2024/12/10
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

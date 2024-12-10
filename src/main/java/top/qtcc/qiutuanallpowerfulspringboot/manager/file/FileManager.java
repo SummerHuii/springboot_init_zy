@@ -2,6 +2,9 @@ package top.qtcc.qiutuanallpowerfulspringboot.manager.file;
 
 import java.io.File;
 
+/**
+ * @author qiutuan
+ */
 public interface FileManager {
 
     /**

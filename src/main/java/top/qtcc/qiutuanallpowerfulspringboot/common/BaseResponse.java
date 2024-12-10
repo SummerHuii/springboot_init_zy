@@ -8,7 +8,6 @@ import java.io.Serializable;
 /**
  * 通用返回类
  *
- * @param <T>
  * @author qiutuan
  * @date 2024/11/02
  */

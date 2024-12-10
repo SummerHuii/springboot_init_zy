@@ -30,6 +30,7 @@ public class CosManager implements FileManager {
      * @param localFilePath 本地文件路径
      * @return 上传结果
      */
+    @Override
     public void putObject(String key, String localFilePath) {
         PutObjectRequest putObjectRequest = new PutObjectRequest(cosClientConfig.getBucket(), key,
                 new File(localFilePath));
@@ -42,6 +43,7 @@ public class CosManager implements FileManager {
      * @param key  唯一键
      * @param file 文件
      */
+    @Override
     public void putObject(String key, File file) {
         PutObjectRequest putObjectRequest = new PutObjectRequest(cosClientConfig.getBucket(), key,
                 file);

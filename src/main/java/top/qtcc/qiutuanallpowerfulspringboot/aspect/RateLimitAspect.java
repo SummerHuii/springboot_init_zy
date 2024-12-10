@@ -29,9 +29,6 @@ import java.util.Collections;
 public class RateLimitAspect {
 
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
-
-    @Resource
     private StringRedisTemplate stringRedisTemplate;
 
     @Around("@annotation(rateLimit)")

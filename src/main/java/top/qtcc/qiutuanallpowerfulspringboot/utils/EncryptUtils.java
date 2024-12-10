@@ -14,7 +14,12 @@ import java.util.Base64;
  */
 public class EncryptUtils {
 
-    private static final String AES_KEY = "your-secret-key-16"; //TODO AES密钥需要16位
+
+    /**
+     * AES加密密钥
+     * TODO AES密钥需要16位
+     */
+    private static final String AES_KEY = "your-secret-key-16";
 
     /**
      * MD5加密

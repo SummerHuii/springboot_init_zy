@@ -1,5 +1,6 @@
 package top.qtcc.qiutuanallpowerfulspringboot.filter;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.MDC;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -30,11 +31,11 @@ public class TraceIdFilter extends OncePerRequestFilter {
      * @param request     请求
      * @param response    响应
      * @param filterChain 过滤器链
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException 异常
+     * @throws IOException     异常
      */
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
             String traceId = UUID.randomUUID().toString().replace("-", "");

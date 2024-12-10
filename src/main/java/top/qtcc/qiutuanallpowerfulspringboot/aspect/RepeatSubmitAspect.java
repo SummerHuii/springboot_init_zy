@@ -13,10 +13,14 @@ import top.qtcc.qiutuanallpowerfulspringboot.exception.BusinessException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
  * 防重复提交切面
+ *
+ * @author qiutuan
+ * @date 2024/12/10
  */
 @Aspect
 @Component
@@ -27,7 +31,7 @@ public class RepeatSubmitAspect {
 
     @Around("@annotation(repeatSubmit)")
     public Object around(ProceedingJoinPoint point, RepeatSubmit repeatSubmit) throws Throwable {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
 
         // 获取请求token，如果没有token，使用请求地址
         String token = request.getHeader("token");

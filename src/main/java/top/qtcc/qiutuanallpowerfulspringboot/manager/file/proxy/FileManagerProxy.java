@@ -19,7 +19,7 @@ public class FileManagerProxy {
     private String fileManagerClassName;
 
     @Bean
-    public FileManager FileManager(@Qualifier("CosManager") FileManager cosManager,
+    public FileManager fileManager(@Qualifier("CosManager") FileManager cosManager,
                                    @Qualifier("MinioManager") FileManager minioManager) {
         if ("CosManager".equals(fileManagerClassName)) {
             return cosManager;

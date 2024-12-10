@@ -34,7 +34,7 @@ public class FileUtils {
      */
     public static String generateUniqueFileName(String originalFileName) {
         String extension = getExtension(originalFileName);
-        return UUID.randomUUID().toString() + (extension.isEmpty() ? "" : "." + extension);
+        return UUID.randomUUID() + (extension.isEmpty() ? "" : "." + extension);
     }
 
     /**
@@ -76,7 +76,9 @@ public class FileUtils {
      * 获取文件大小的可读性表示
      */
     public static String getReadableFileSize(long size) {
-        if (size <= 0) return "0";
+        if (size <= 0) {
+            return String.valueOf(0);
+        }
         final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
         int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
         return String.format("%.1f %s", size / Math.pow(1024, digitGroups), units[digitGroups]);
