@@ -5,9 +5,9 @@ server:
 spring:
   #  数据源配置
   datasource:
-    url: jdbc:mysql://localhost:3306/xxxxx?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
-    username: xxxxx
-    password: xxxxx
+    url: jdbc:mysql://47.109.94.104:3306/zy_small_program?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+    username: root
+    password: Fj201212!
     driver-class-name: com.mysql.cj.jdbc.Driver
   # redis 配置
   redis:
@@ -59,9 +59,9 @@ cos:
 
 # TODO minio对象存储配置  自行部署minio服务
 minio:
-  endpoint: xxxxxx
-  accessKey: xxxxxx
-  secretKey: xxxxxx
+  endpoint: http://47.109.94.104:9001/
+  accessKey: minio
+  secretKey: minio_admin
   bucket: xxxxxxx
 
 
